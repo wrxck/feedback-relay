@@ -180,7 +180,8 @@ export function makeAttestation(spec: AttestationSpec): Uint8Array {
 
 export interface AssertionSpec {
   privateKey: KeyObject;
-  clientData: Uint8Array;
+  clientData?: Uint8Array;
+  clientDataHash?: Uint8Array;
   counter: number;
   appId?: string;
 }
@@ -189,7 +190,8 @@ export function makeAssertion(spec: AssertionSpec): Uint8Array {
   const authenticatorData = new Uint8Array(
     Buffer.concat([sha256(utf8(spec.appId ?? APP_ID)), Uint8Array.of(0), u32(spec.counter)]),
   );
-  const nonce = sha256(authenticatorData, sha256(spec.clientData));
+  const hash = spec.clientDataHash ?? sha256(spec.clientData ?? new Uint8Array());
+  const nonce = sha256(authenticatorData, hash);
   const signature = new Uint8Array(sign('sha256', nonce, spec.privateKey));
   return encode({ signature, authenticatorData });
 }
