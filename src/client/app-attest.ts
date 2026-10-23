@@ -51,7 +51,13 @@ export function createAppAttestProvider(options: {
           throw error;
         }
       }
-      proof.assertion = await bridge.generateAssertion(state.keyId, hash);
+      try {
+        proof.assertion = await bridge.generateAssertion(state.keyId, hash);
+      } catch (error) {
+        // a key restored from a backup is not in this device's secure enclave, so only a new key can recover
+        await storage.save(null);
+        throw error;
+      }
       pending = state;
       return proof;
     },

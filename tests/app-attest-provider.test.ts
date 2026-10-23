@@ -22,6 +22,16 @@ describe('app attest provider', () => {
     expect(storage.state).toBeNull();
   });
 
+  it('drops a key that no longer works on this device, so the next report starts over', async () => {
+    const bridge = fakeBridge(makePki());
+    bridge.generateAssertion = vi.fn().mockRejectedValue(new Error('invalid key'));
+    const storage = memoryStorage();
+    storage.state = { keyId: 'restored-from-backup', attested: true };
+    const provider = createAppAttestProvider({ bridge, storage });
+    await expect(provider.prove(hash)).rejects.toThrow(/invalid key/);
+    expect(storage.state).toBeNull();
+  });
+
   it('keeps state on other rejections and ignores accepted without a proof', async () => {
     const storage = memoryStorage();
     const provider = createAppAttestProvider({ bridge: fakeBridge(makePki()), storage });
