@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/wrxck/feedback-relay/issues"
   },
-  "author": "Matt Hesketh <matt@heskethwebdesign.co.uk>",
+  "author": "Matt Hesketh <matt@matthesketh.pro>",
   "type": "module",
   "engines": {
     "node": ">=20"
