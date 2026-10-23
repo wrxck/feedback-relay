@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Let an app send bug reports and ideas to GitHub issues through your own server, with app attestation, PII scrubbing and rate limits.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrxck/feedback-relay.git"
+  },
+  "homepage": "https://github.com/wrxck/feedback-relay#readme",
+  "bugs": {
+    "url": "https://github.com/wrxck/feedback-relay/issues"
+  },
   "author": "Matt Hesketh <matt@heskethwebdesign.co.uk>",
   "type": "module",
   "engines": {
