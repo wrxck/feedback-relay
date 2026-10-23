@@ -54,7 +54,8 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint . && prettier --check .",
     "format": "eslint . --fix && prettier --write .",
-    "prepublishOnly": "npm run typecheck && npm run lint && npm test && npm run build"
+    "prepublishOnly": "npm run typecheck && npm run lint && npm test && npm run build",
+    "prepare": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "cborg": "6.1.3"
